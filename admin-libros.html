@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>admin · café</title>
+<title>admin · libros</title>
 <meta name="robots" content="noindex,nofollow" />
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -17,35 +17,22 @@
 <style>
   body { font-family: 'Lexend Deca', sans-serif; }
   .mono { font-family: 'JetBrains Mono', monospace; }
-  .drop-zone {
-    border: 2px dashed rgba(255,255,255,0.18);
-    border-radius: 16px;
-    transition: border-color 200ms ease, background 200ms ease;
-  }
-  .drop-zone.dragging {
-    border-color: rgba(110, 231, 183, 0.6);
-    background: rgba(110, 231, 183, 0.05);
-  }
-  .field, select.field {
+  .field, select.field, textarea.field {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
     color: #ededed;
-    padding: 6px 10px;
+    padding: 8px 12px;
     border-radius: 8px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
     width: 100%;
   }
-  .field:focus, select.field:focus {
+  .field:focus, select.field:focus, textarea.field:focus {
     outline: none;
     border-color: rgba(255,255,255,0.25);
     background: rgba(255,255,255,0.06);
   }
-  textarea.field {
-    min-height: 60px;
-    resize: vertical;
-    line-height: 1.5;
-  }
+  textarea.field { min-height: 50px; resize: vertical; }
   .btn {
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.14);
@@ -70,6 +57,16 @@
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 14px;
   }
+  .search-result {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    transition: background 150ms ease, border-color 150ms ease;
+  }
+  .search-result:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.18);
+  }
   textarea.code {
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
@@ -83,9 +80,6 @@
     min-height: 320px;
     resize: vertical;
   }
-  .preview-bag {
-    background: repeating-linear-gradient(45deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02) 8px, transparent 8px, transparent 16px);
-  }
 </style>
 </head>
 
@@ -98,20 +92,52 @@
     <span class="mx-2 text-white/20">·</span>
     <a href="admin.html" class="text-sm text-white/40 hover:text-white/70">admin de fotos</a>
     <span class="mx-2 text-white/20">·</span>
-    <a href="admin-libros.html" class="text-sm text-white/40 hover:text-white/70">admin de libros</a>
+    <a href="admin-cafe.html" class="text-sm text-white/40 hover:text-white/70">admin de café</a>
 
-    <h1 class="mt-4 text-3xl sm:text-4xl font-light tracking-tight">subir café</h1>
+    <h1 class="mt-4 text-3xl sm:text-4xl font-light tracking-tight">subir libros</h1>
     <p class="mt-3 text-sm text-white/50 max-w-2xl">
-      Agregá granos (actuales o anteriores) y equipo. Llená los campos, el preview se actualiza solo y al final descargás el <code class="mono text-white/70">cafe-data.js</code> listo + las imágenes renombradas.
+      Buscá un libro por título o autor — uso la API de Open Library para traerte automáticamente la portada, el autor y los géneros. Después le ajustás lo que quieras.
     </p>
     <p class="mt-2 text-xs text-white/35">⚠️ Página local. No la subas a producción.</p>
   </header>
 
-  <!-- Drop zone -->
-  <div id="dropzone" class="drop-zone p-10 text-center cursor-pointer">
-    <p class="text-base text-white/70">☕ arrastrá imagen(es) de la bolsa o equipo</p>
-    <p class="mt-2 text-xs text-white/40">PNG con fondo transparente queda mejor para el efecto sticker</p>
-    <input type="file" id="fileInput" accept="image/*" multiple class="hidden" />
+  <!-- Buscador -->
+  <div class="card p-5">
+    <label class="block">
+      <span class="text-sm text-white/55">buscar libro</span>
+      <div class="flex gap-2 mt-2">
+        <input id="searchInput" class="field" placeholder="ej. man's search for meaning" />
+        <button id="searchBtn" class="btn btn-primary">buscar</button>
+      </div>
+    </label>
+    <p class="text-[11px] mono text-white/30 mt-2">también podés agregar uno a mano abajo si no aparece.</p>
+
+    <!-- Resultados -->
+    <div id="searchResults" class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+
+    <!-- Selector de ediciones -->
+    <div id="editionsPanel" class="mt-5 hidden">
+      <div class="flex items-center justify-between mb-3">
+        <p class="text-sm text-white/65">
+          ediciones de <span id="editionsTitle" class="text-white/90"></span>
+          <span id="editionsCount" class="mono text-white/35 ml-2"></span>
+        </p>
+        <div class="flex gap-2 items-center">
+          <label class="text-xs text-white/50 mono flex items-center gap-2">
+            <input type="checkbox" id="editionsLangFilter" class="accent-emerald-300" checked />
+            solo español
+          </label>
+          <button id="editionsBack" class="btn">← volver</button>
+          <button id="useWork" class="btn">usar el original</button>
+        </div>
+      </div>
+      <div id="editionsGrid" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-3"></div>
+    </div>
+  </div>
+
+  <!-- Botón agregar manualmente -->
+  <div class="mt-4 text-center">
+    <button id="addManualBtn" class="btn">+ agregar libro manualmente</button>
   </div>
 
   <!-- Lista de items cargados -->
@@ -120,24 +146,24 @@
   <!-- Output -->
   <section id="output" class="mt-10 hidden">
     <div class="flex items-center justify-between mb-3">
-      <h2 class="text-lg font-medium">código actualizado de <span class="mono text-white/60">cafe-data.js</span></h2>
+      <h2 class="text-lg font-medium">código actualizado de <span class="mono text-white/60">libros-data.js</span></h2>
       <div class="flex gap-2">
         <button id="copyBtn" class="btn">copiar</button>
-        <button id="downloadJsBtn" class="btn btn-primary">descargar cafe-data.js</button>
+        <button id="downloadJsBtn" class="btn btn-primary">descargar libros-data.js</button>
       </div>
     </div>
     <textarea id="codeOut" class="code" readonly></textarea>
     <p class="mt-3 text-xs text-white/45">
       <strong class="text-white/65">Pasos:</strong>
-      1) descargá cada imagen renombrada arriba y movelas a <code class="mono">images/cafe/</code> ·
-      2) descargá el <code class="mono">cafe-data.js</code> y reemplazá el archivo en la raíz ·
-      3) refrescá <code class="mono">cafe.html</code>.
+      1) descargá cada portada (botón en cada card) y movelas a <code class="mono">images/libros/</code> ·
+      2) descargá el <code class="mono">libros-data.js</code> y reemplazá el archivo en raíz ·
+      3) refrescá <code class="mono">libros.html</code>.
     </p>
   </section>
 
 </main>
 
-<script src="cafe-data.js"></script>
-<script src="admin-cafe.js"></script>
+<script src="libros-data.js"></script>
+<script src="admin-libros.js"></script>
 </body>
 </html>

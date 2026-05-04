@@ -25,7 +25,7 @@
       <a class="text-xl sm:text-2xl font-display font-semibold text-center" href="#">yo</a>
       <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="fotos.html">fotos</a>
       <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="cafe.html">café</a>
-      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="#libros">libros</a>
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="libros.html">libros</a>
     </div>
   </nav>
 
@@ -38,9 +38,9 @@
         <p class="text-[1.35rem] sm:text-[2rem] leading-[3.5rem] sm:leading-[4rem] font-light tracking-tight text-center sm:text-left" style="font-family:'Lexend Deca', sans-serif">
           hola, soy diego! me obsesiono con el diseño, la tecnología, la imprenta y la IA. cuando no estoy frente a una prensa, preparo
 
-          <!-- Café -->
-          <a href="cafe.html" class="glass-border inline-block rounded-[8px] shadow-sm align-middle mx-0.5 relative transition-all duration-300 hover:scale-110 hover:shadow-md h-[2rem] sm:h-[2.2rem] overflow-visible">
-            <img src="images/homepage/v60.png" alt="café" class="block h-[2.8rem] sm:h-[4rem] w-auto rounded-[7px] relative -top-[0.4rem] sm:-top-[0.8rem]" />
+          <!-- Café — la imagen se cambia dinámicamente al café actual desde cafe-data.js -->
+          <a href="cafe.html" id="cafe-link" class="inline-block align-middle mx-0.5 relative transition-all duration-300 hover:scale-110 h-[2rem] sm:h-[2.2rem] overflow-visible">
+            <img id="cafe-img" src="images/homepage/v60.png" alt="café" class="block h-[2.8rem] sm:h-[4rem] w-auto relative -top-[0.4rem] sm:-top-[0.8rem] object-contain" style="filter:drop-shadow(0 4px 10px rgba(0,0,0,0.5))" />
           </a>
 
           tomo
@@ -52,9 +52,9 @@
 
           y leo
 
-          <!-- Libro -->
-          <a href="#libros" class="inline-block shadow-sm align-middle mx-0.5 relative transition-all duration-300 hover:scale-110 hover:shadow-md h-[2rem] sm:h-[2.2rem] overflow-visible">
-            <img src="images/homepage/libro.jpg" alt="libros" class="block h-[2.8rem] sm:h-[4rem] w-auto rounded-[4px] relative -top-[0.4rem] sm:-top-[0.8rem]" />
+          <!-- Libro — la imagen se cambia al libro que estoy leyendo (libros-data.js) -->
+          <a href="libros.html" id="libro-link" class="inline-block shadow-sm align-middle mx-0.5 relative transition-all duration-300 hover:scale-110 hover:shadow-md h-[2rem] sm:h-[2.2rem] overflow-visible">
+            <img id="libro-img" src="images/homepage/libro.jpg" alt="libros" class="block h-[2.8rem] sm:h-[4rem] w-auto rounded-[4px] relative -top-[0.4rem] sm:-top-[0.8rem] object-cover" />
           </a>
 
           — gracias por pasar a saludar, ¡que tengas un lindo día!
@@ -180,6 +180,8 @@
   </div>
 
 <script src="fotos-data.js"></script>
+<script src="cafe-data.js"></script>
+<script src="libros-data.js"></script>
 <script src="index.js"></script>
 </body>
 </html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>libros · diego díaz</title>
+<meta name="description" content="lo que estoy leyendo · diego díaz" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="bg-[#111111] text-[#ededed] antialiased">
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="fixed top-0 left-0 w-full z-50 transition-opacity duration-200">
+    <div class="flex items-center justify-center gap-6 sm:gap-12 py-8">
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="index.html">yo</a>
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="fotos.html">fotos</a>
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="cafe.html">café</a>
+      <a class="text-xl sm:text-2xl font-display font-semibold text-center" href="libros.html">libros</a>
+    </div>
+  </nav>
+
+  <!-- ===================== MAIN ===================== -->
+  <div class="animate-page-enter">
+    <main class="min-h-screen px-6 sm:px-8 pt-[18vh] pb-24">
+      <div class="max-w-4xl mx-auto">
+
+        <!-- ===== Leyendo ahora ===== -->
+        <section class="mb-16">
+          <div class="flex items-center gap-3 mb-8">
+            <h2 class="text-2xl font-light tracking-tight" style="font-family:'Lexend Deca', sans-serif">leyendo ahora</h2>
+            <span class="text-sm text-white/35" id="leyendo-count">0</span>
+          </div>
+          <div id="leyendo" class="flex flex-wrap gap-6 justify-start"></div>
+          <p id="leyendo-vacio" class="text-sm text-white/35 hidden">no estoy leyendo nada por el momento — ya van a venir.</p>
+          <div class="mt-8 h-[2px] rounded-full bg-gradient-to-r from-transparent via-white/12 to-transparent"></div>
+        </section>
+
+        <!-- ===== Terminados ===== -->
+        <section>
+          <div class="flex items-center gap-3 mb-8">
+            <h2 class="text-2xl font-light tracking-tight" style="font-family:'Lexend Deca', sans-serif">terminados</h2>
+            <span class="text-sm text-white/35" id="terminados-count">0</span>
+          </div>
+          <div id="terminados" class="flex flex-wrap gap-6 justify-start"></div>
+          <p id="terminados-vacio" class="text-sm text-white/35 hidden">todavía no agregué nada acá. próximamente.</p>
+        </section>
+
+        <!-- ===== Footer ===== -->
+        <p class="mt-20 mb-6 text-center text-xs text-white/35 tracking-widest" style="font-family:'Silkscreen', cursive">hecho con 🫶🏽 en querétaro</p>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="libros-data.js"></script>
+  <script src="libros.js"></script>
+</body>
+</html>

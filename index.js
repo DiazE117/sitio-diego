@@ -4,6 +4,29 @@
    ============================================================ */
 
 (function () {
+  /* ----------- Café actual en el párrafo de intro ----------- */
+  const cafeImg = document.getElementById('cafe-img');
+  const cafeLink = document.getElementById('cafe-link');
+  if (cafeImg && window.CAFE?.actual?.length) {
+    const actual = window.CAFE.actual[0]; // El primero = el más reciente
+    cafeImg.src = actual.img;
+    cafeImg.alt = actual.nombre || 'café';
+    if (cafeLink) {
+      cafeLink.title = `tomando ${actual.nombre}${actual.tostador ? ' · ' + actual.tostador : ''}`;
+    }
+  }
+
+  /* ----------- Libro actual en el párrafo de intro ----------- */
+  const libroImg = document.getElementById('libro-img');
+  const libroLink = document.getElementById('libro-link');
+  if (libroImg && window.LIBROS?.leyendo?.length) {
+    const actual = window.LIBROS.leyendo[0];
+    if (actual.cover) libroImg.src = actual.cover;
+    libroImg.alt = actual.titulo || 'libro';
+    if (libroLink) libroLink.title = `leyendo ${actual.titulo}${actual.autor ? ' · ' + actual.autor : ''}`;
+  }
+
+  /* ----------- Abanico de fotos (últimas 3) ----------- */
   const abanico = document.getElementById('abanico');
   if (!abanico || !window.FOTOS || !window.FOTOS.length) return;
 
