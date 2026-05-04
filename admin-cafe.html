@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>admin · subir fotos</title>
+<title>admin · café</title>
 <meta name="robots" content="noindex,nofollow" />
 
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/exifr/dist/full.umd.js"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,7 +26,7 @@
     border-color: rgba(110, 231, 183, 0.6);
     background: rgba(110, 231, 183, 0.05);
   }
-  .field {
+  .field, select.field {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
     color: #ededed;
@@ -37,10 +36,15 @@
     font-size: 13px;
     width: 100%;
   }
-  .field:focus {
+  .field:focus, select.field:focus {
     outline: none;
     border-color: rgba(255,255,255,0.25);
     background: rgba(255,255,255,0.06);
+  }
+  textarea.field {
+    min-height: 60px;
+    resize: vertical;
+    line-height: 1.5;
   }
   .btn {
     background: rgba(255,255,255,0.08);
@@ -76,8 +80,11 @@
     color: #ededed;
     padding: 16px;
     width: 100%;
-    min-height: 280px;
+    min-height: 320px;
     resize: vertical;
+  }
+  .preview-bag {
+    background: repeating-linear-gradient(45deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02) 8px, transparent 8px, transparent 16px);
   }
 </style>
 </head>
@@ -89,45 +96,46 @@
   <header class="mb-10">
     <a href="index.html" class="text-sm text-white/40 hover:text-white/70">← volver al sitio</a>
     <span class="mx-2 text-white/20">·</span>
-    <a href="admin-cafe.html" class="text-sm text-white/40 hover:text-white/70">admin de café</a>
-    <h1 class="mt-4 text-3xl sm:text-4xl font-light tracking-tight">subir fotos</h1>
+    <a href="admin.html" class="text-sm text-white/40 hover:text-white/70">admin de fotos</a>
+
+    <h1 class="mt-4 text-3xl sm:text-4xl font-light tracking-tight">subir café</h1>
     <p class="mt-3 text-sm text-white/50 max-w-2xl">
-      Arrastrá una o varias imágenes acá abajo. Te leo la EXIF (cámara, focal, f-stop, ISO, proporción) y te genero el código para pegar en <code class="mono text-white/70">fotos-data.js</code>. También te ofrezco descargar cada imagen ya renombrada con el número correcto.
+      Agregá granos (actuales o anteriores) y equipo. Llená los campos, el preview se actualiza solo y al final descargás el <code class="mono text-white/70">cafe-data.js</code> listo + las imágenes renombradas.
     </p>
-    <p class="mt-2 text-xs text-white/35">⚠️ Esta página es una herramienta local. No la subas a producción.</p>
+    <p class="mt-2 text-xs text-white/35">⚠️ Página local. No la subas a producción.</p>
   </header>
 
-  <!-- ===== Drop zone ===== -->
+  <!-- Drop zone -->
   <div id="dropzone" class="drop-zone p-10 text-center cursor-pointer">
-    <p class="text-base text-white/70">📸 arrastrá fotos acá</p>
-    <p class="mt-2 text-xs text-white/40">o hacé click para elegirlas — JPG / PNG / HEIC</p>
+    <p class="text-base text-white/70">☕ arrastrá imagen(es) de la bolsa o equipo</p>
+    <p class="mt-2 text-xs text-white/40">PNG con fondo transparente queda mejor para el efecto sticker</p>
     <input type="file" id="fileInput" accept="image/*" multiple class="hidden" />
   </div>
 
-  <!-- ===== Lista de fotos cargadas ===== -->
+  <!-- Lista de items cargados -->
   <div id="list" class="mt-8 space-y-4"></div>
 
-  <!-- ===== Output del código ===== -->
+  <!-- Output -->
   <section id="output" class="mt-10 hidden">
     <div class="flex items-center justify-between mb-3">
-      <h2 class="text-lg font-medium">código actualizado de <span class="mono text-white/60">fotos-data.js</span></h2>
+      <h2 class="text-lg font-medium">código actualizado de <span class="mono text-white/60">cafe-data.js</span></h2>
       <div class="flex gap-2">
         <button id="copyBtn" class="btn">copiar</button>
-        <button id="downloadJsBtn" class="btn btn-primary">descargar fotos-data.js</button>
+        <button id="downloadJsBtn" class="btn btn-primary">descargar cafe-data.js</button>
       </div>
     </div>
     <textarea id="codeOut" class="code" readonly></textarea>
     <p class="mt-3 text-xs text-white/45">
       <strong class="text-white/65">Pasos:</strong>
-      1) descargá cada imagen renombrada arriba (botón "descargar como N.jpg") y movelas a <code class="mono">images/fotos/</code> ·
-      2) descargá el <code class="mono">fotos-data.js</code> actualizado y reemplazá el archivo en la raíz del sitio ·
-      3) refrescá <code class="mono">index.html</code>.
+      1) descargá cada imagen renombrada arriba y movelas a <code class="mono">images/cafe/</code> ·
+      2) descargá el <code class="mono">cafe-data.js</code> y reemplazá el archivo en la raíz ·
+      3) refrescá <code class="mono">cafe.html</code>.
     </p>
   </section>
 
 </main>
 
-<script src="fotos-data.js"></script>
-<script src="admin.js"></script>
+<script src="cafe-data.js"></script>
+<script src="admin-cafe.js"></script>
 </body>
 </html>
