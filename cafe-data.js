@@ -1,31 +1,32 @@
 /* ============================================================
    cafe-data.js — Granos de café actuales, anteriores y equipo
    ============================================================
-   ⚠️  AGREGÁ ENTRADAS NUEVAS ARRIBA en cada array.
-       Podés usar admin-cafe.html para hacerlo gráficamente.
+   Generado por admin-cafe.html el 4/5/2026, 3:18:09 p.m..
    ============================================================ */
 
 window.CAFE = {
 
-  /* ----- En taza ahora ----- */
   actual: [
     {
       img:      "images/cafe/actual-3.png",
       nombre:   "Puebla",
       tostador: "El Apapacho",
-      notas:    ["ciruela", "caramelo", "limón"],
-      detalle:  [
-        "Proyecto Directo al Origen",
-        "Totutla, Puebla · 1100 MASL",
-        "Varietal Marsellesa · proceso lavado"
-      ],
+      notas:    ["ciruela","caramelo","limón"],
+      detalle:  ["Proyecto Directo al Origen","Totutla, Puebla · 1100 MASL","Varietal Marsellesa · proceso lavado"],
       rotate:   -4
     }
   ],
 
-  /* ----- Anteriores ----- */
-  anteriores: [],
+  anteriores: [
 
-  /* ----- Equipo ----- */
-  equipo: []
+  ],
+
+  equipo: [
+    {
+      img:    "images/cafe/the-barista-touch-breville.png",
+      nombre: "the Barista Touch Breville",
+      desc:   "Máquina de espresso",
+      rotate: 5
+    }
+  ]
 };
