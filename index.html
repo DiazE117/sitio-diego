@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>diego díaz</title>
+<meta name="description" content="diseño, tecnología, imprenta e IA — desde Querétaro" />
+
+<!-- Tailwind CDN (sin build step, ideal para WordPress) -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Tipografías -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="bg-[#111111] text-[#ededed] antialiased">
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="fixed top-0 left-0 w-full z-50 transition-opacity duration-200">
+    <div class="flex items-center justify-center gap-6 sm:gap-12 py-8">
+      <a class="text-xl sm:text-2xl font-display font-semibold text-center" href="#">yo</a>
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="fotos.html">fotos</a>
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="#cafe">café</a>
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="#libros">libros</a>
+    </div>
+  </nav>
+
+  <!-- ===================== MAIN ===================== -->
+  <div class="animate-page-enter">
+    <main class="min-h-screen px-10 sm:px-8 pt-[20vh] pb-24">
+      <div class="max-w-2xl mx-auto">
+
+        <!-- ===== Párrafo de intro con elementos inline ===== -->
+        <p class="text-[1.35rem] sm:text-[2rem] leading-[3.5rem] sm:leading-[4rem] font-light tracking-tight text-center sm:text-left" style="font-family:'Lexend Deca', sans-serif">
+          hola, soy diego! me obsesiono con el diseño, la tecnología, la imprenta y la IA. cuando no estoy frente a una prensa, preparo
+
+          <!-- Café -->
+          <a href="#cafe" class="glass-border inline-block rounded-[8px] shadow-sm align-middle mx-0.5 relative transition-all duration-300 hover:scale-110 hover:shadow-md h-[2rem] sm:h-[2.2rem] overflow-visible">
+            <img src="images/homepage/v60.png" alt="café" class="block h-[2.8rem] sm:h-[4rem] w-auto rounded-[7px] relative -top-[0.4rem] sm:-top-[0.8rem]" />
+          </a>
+
+          tomo
+
+          <!-- Fotos abanicadas — se llenan dinámicamente con las últimas 3 fotos -->
+          <a href="fotos.html" id="abanico" class="group relative inline-flex items-center justify-center w-[5.5rem] sm:w-[7rem] h-[2rem] sm:h-[2.2rem] align-middle mx-1 cursor-pointer z-0 hover:z-50 drop-shadow transition-[filter] duration-300 hover:drop-shadow-md overflow-visible">
+            <!-- Las 3 imágenes se inyectan vía JS desde fotos-data.js -->
+          </a>
+
+          y leo
+
+          <!-- Libro -->
+          <a href="#libros" class="inline-block shadow-sm align-middle mx-0.5 relative transition-all duration-300 hover:scale-110 hover:shadow-md h-[2rem] sm:h-[2.2rem] overflow-visible">
+            <img src="images/homepage/libro.jpg" alt="libros" class="block h-[2.8rem] sm:h-[4rem] w-auto rounded-[4px] relative -top-[0.4rem] sm:-top-[0.8rem]" />
+          </a>
+
+          — gracias por pasar a saludar, ¡que tengas un lindo día!
+        </p>
+
+        <!-- ===== Cover + Mapa + Music widget ===== -->
+        <div class="mt-16 flex flex-col sm:flex-row gap-3">
+
+          <!-- Cover -->
+          <div class="flex-1 relative min-w-0 h-[15.75rem]">
+            <div class="relative z-10 h-full overflow-hidden rounded-xl">
+              <img src="images/cover.jpg" alt="Cover" class="w-full h-full object-cover" />
+              <div class="absolute bottom-2 left-2 z-[3]">
+                <span class="text-[10px] text-white font-mono tracking-wide bg-black/50 backdrop-blur-sm rounded-full px-2 py-0.5">una vista desde mi casa</span>
+              </div>
+            </div>
+            <div class="absolute inset-0 translate-y-4 -z-10">
+              <img src="images/cover.jpg" alt="" aria-hidden="true" class="w-full h-full object-cover rounded-xl blur-md opacity-30" />
+            </div>
+          </div>
+
+          <!-- Columna derecha (mapa + widget música) -->
+          <div class="flex flex-col gap-3 sm:w-[16rem] flex-shrink-0">
+
+            <!-- Mapa -->
+            <a href="https://www.google.com/maps/place/Querétaro,+Qro." target="_blank" rel="noopener noreferrer" class="glass-border rounded-[17px] block shadow-sm hover:shadow-md transition-shadow duration-300">
+              <div class="relative rounded-[16px] overflow-hidden h-[7.5rem] bg-[#1a1a1a]">
+                <iframe src="https://maps.google.com/maps?ll=20.5888,-100.3899&z=13&t=m&output=embed" class="w-[200%] h-[200%] border-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" loading="lazy" referrerpolicy="no-referrer"></iframe>
+                <div class="absolute bottom-2 left-2 z-[3]">
+                  <span class="text-[10px] font-mono text-white tracking-wide bg-black/50 backdrop-blur-sm rounded-full px-2 py-0.5">🗺️ Querétaro</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Widget música (Not Playing) -->
+            <div class="flex flex-col gap-2 sm:flex-row sm:h-[7.5rem]">
+              <span class="glass-border rounded-[17px] block shrink-0 shadow-sm hover:shadow-md w-full sm:w-full">
+                <div class="relative rounded-[16px] overflow-hidden h-[7.5rem] bg-[#1f1f1f] block">
+                  <div class="absolute top-1 left-2 right-2 overflow-hidden pointer-events-none select-none z-0">
+                    <span class="text-[1.8rem] uppercase leading-[0.9] text-white/[0.07] tracking-tighter block" style="font-family:'Impact','Arial Black',sans-serif;font-weight:900">Not Playing</span>
+                  </div>
+                  <div class="absolute -bottom-36 left-1/2 -translate-x-1/2 w-[14rem] h-[14rem] pointer-events-none z-[1]">
+                    <div class="w-full h-full rounded-full">
+                      <div class="absolute inset-0 rounded-full">
+                        <div class="w-full h-full rounded-full bg-gradient-to-br from-blue-400 via-cyan-300 to-red-500 opacity-90"></div>
+                      </div>
+                      <div class="absolute inset-[6px] rounded-full border border-white/[0.06]"></div>
+                      <div class="absolute inset-[12px] rounded-full border border-white/[0.06]"></div>
+                      <div class="absolute inset-[18px] rounded-full border border-white/[0.06]"></div>
+                      <div class="absolute inset-[24px] rounded-full border border-white/[0.06]"></div>
+                      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-[#1f1f1f]"></div>
+                      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-white/30"></div>
+                    </div>
+                  </div>
+                  <!-- Aguja del tornamesa -->
+                  <div class="absolute -top-1 -left-2 origin-top-left rotate-[38deg] pointer-events-none z-[2]">
+                    <div class="w-[4px] h-16 bg-white/60 rounded-full shadow-md"></div>
+                    <div class="w-[6px] h-[3px] bg-white/40 rounded-sm mx-auto -mt-[1px]"></div>
+                  </div>
+                  <!-- Marquee -->
+                  <div class="absolute bottom-0 left-0 right-0 h-5 bg-black/40 flex items-center overflow-hidden rounded-b-[16px] z-[3]">
+                    <div class="animate-marquee whitespace-nowrap text-[10px] text-white/40 font-medium inline-flex">
+                      <span class="inline-flex">
+                        <span class="px-2">sin reproducir •</span><span class="px-2">sin reproducir •</span><span class="px-2">sin reproducir •</span><span class="px-2">sin reproducir •</span><span class="px-2">sin reproducir •</span><span class="px-2">sin reproducir •</span><span class="px-2">sin reproducir •</span><span class="px-2">sin reproducir •</span>
+                      </span>
+                      <span class="inline-flex" aria-hidden="true">
+                        <span class="px-2">sin reproducir •</span><span class="px-2">sin reproducir •</span><span class="px-2">sin reproducir •</span><span class="px-2">sin reproducir •</span><span class="px-2">sin reproducir •</span><span class="px-2">sin reproducir •</span><span class="px-2">sin reproducir •</span><span class="px-2">sin reproducir •</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ===== Trabajo ===== -->
+        <div class="mt-20 space-y-5">
+          <a href="#" class="group flex items-center gap-4 p-3 -mx-3 rounded-2xl transition-all duration-300 hover:bg-white/[0.04]">
+            <img src="images/work/preprensa.jpg" alt="Pre-prensa" class="w-12 h-12 rounded-xl object-cover flex-shrink-0 transition-transform duration-300 group-hover:scale-105" />
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2">
+                <span class="text-base font-medium text-white/85 group-hover:text-white transition-colors" style="font-family:'Lexend Deca', sans-serif">Pre-prensa</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.6)] flex-shrink-0"></span>
+              </div>
+              <p class="text-sm text-white/40">pre-prensista · ahora</p>
+            </div>
+            <span class="text-white/25 group-hover:text-white/50 transition-colors text-lg">↗</span>
+          </a>
+        </div>
+
+        <!-- Separador ondulado -->
+        <div class="flex justify-center my-10">
+          <svg width="80" height="12" viewBox="0 0 80 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 6 C10 2, 14 10, 22 6 C30 2, 34 10, 42 6 C50 2, 54 10, 62 6 C70 2, 74 10, 78 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="text-white/20"></path>
+          </svg>
+        </div>
+
+        <!-- ===== Logros ===== -->
+        <div class="space-y-5">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-4 p-3 -mx-3 rounded-2xl transition-all duration-300 hover:bg-white/[0.04]">
+            <img src="images/work/cofinance.jpg" alt="CoFinance" class="h-12 w-12 rounded-xl object-cover flex-shrink-0 transition-transform duration-300 group-hover:scale-105" />
+            <span class="text-base text-white/65 group-hover:text-white/85 transition-colors" style="font-family:'Lexend Deca', sans-serif">creador de CoFinance 🎖️</span>
+            <span class="ml-auto text-white/25 group-hover:text-white/50 transition-colors text-lg">↗</span>
+          </a>
+        </div>
+
+        <!-- ===== Footer ===== -->
+        <p class="mt-20 mb-6 text-center text-xs text-white/35 tracking-widest" style="font-family:'Silkscreen', cursive">hecho con 🫶🏽 en querétaro</p>
+
+        <div class="relative">
+          <div class="relative z-10 overflow-hidden rounded-2xl">
+            <img src="images/qro.jpg" alt="Querétaro" class="w-full h-auto object-cover" />
+          </div>
+          <div class="absolute inset-0 translate-y-5 -z-10">
+            <img src="images/qro.jpg" alt="" aria-hidden="true" class="w-full h-full object-cover rounded-2xl blur-lg opacity-25" />
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+<script src="fotos-data.js"></script>
+<script src="index.js"></script>
+</body>
+</html>

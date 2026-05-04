@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>fotos · diego díaz</title>
+<meta name="description" content="capturas de diego díaz" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&family=Silkscreen:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="bg-[#111111] text-[#ededed] antialiased">
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="fixed top-0 left-0 w-full z-50 transition-opacity duration-200">
+    <div class="flex items-center justify-center gap-6 sm:gap-12 py-8">
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="index.html">yo</a>
+      <a class="text-xl sm:text-2xl font-display font-semibold text-center" href="fotos.html">fotos</a>
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="index.html#cafe">café</a>
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="index.html#libros">libros</a>
+    </div>
+  </nav>
+
+  <!-- ===================== MAIN ===================== -->
+  <div class="animate-page-enter">
+    <main class="min-h-screen px-6 sm:px-8 pt-[18vh] pb-24">
+      <div class="max-w-7xl mx-auto">
+
+        <!-- Encabezado -->
+        <header class="mb-10 text-center sm:text-left">
+          <h1 class="text-3xl sm:text-5xl font-light tracking-tight" style="font-family:'Lexend Deca', sans-serif">capturas</h1>
+          <p class="mt-3 text-sm sm:text-base text-white/45" style="font-family:'Lexend Deca', sans-serif">momentos sueltos · querétaro y por ahí</p>
+        </header>
+
+        <!-- Grid masonry (CSS columns). Las fotos se inyectan desde fotos-data.js -->
+        <div class="gallery columns-1 sm:columns-2 lg:columns-3 gap-4" id="gallery"></div>
+
+        <!-- Lightbox -->
+        <div id="lightbox" class="lightbox" aria-hidden="true">
+          <button id="lightbox-close" class="lightbox-close" aria-label="Cerrar">&times;</button>
+          <button id="lightbox-prev" class="lightbox-nav lightbox-prev" aria-label="Anterior">&#8249;</button>
+          <button id="lightbox-next" class="lightbox-nav lightbox-next" aria-label="Siguiente">&#8250;</button>
+          <img id="lightbox-img" src="" alt="" />
+          <div id="lightbox-meta" class="lightbox-meta"></div>
+        </div>
+
+        <!-- Footer chiquito -->
+        <p class="mt-20 mb-6 text-center text-xs text-white/35 tracking-widest" style="font-family:'Silkscreen', cursive">hecho con 🫶🏽 en querétaro</p>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="fotos-data.js"></script>
+  <script src="fotos.js"></script>
+</body>
+</html>

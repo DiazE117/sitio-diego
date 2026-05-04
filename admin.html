@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>admin · subir fotos</title>
+<meta name="robots" content="noindex,nofollow" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/exifr/dist/full.umd.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+
+<style>
+  body { font-family: 'Lexend Deca', sans-serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .drop-zone {
+    border: 2px dashed rgba(255,255,255,0.18);
+    border-radius: 16px;
+    transition: border-color 200ms ease, background 200ms ease;
+  }
+  .drop-zone.dragging {
+    border-color: rgba(110, 231, 183, 0.6);
+    background: rgba(110, 231, 183, 0.05);
+  }
+  .field {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #ededed;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    width: 100%;
+  }
+  .field:focus {
+    outline: none;
+    border-color: rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.06);
+  }
+  .btn {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: #ededed;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 150ms ease, transform 150ms ease;
+  }
+  .btn:hover { background: rgba(255,255,255,0.14); }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary {
+    background: rgb(110, 231, 183);
+    color: #0a1a14;
+    border-color: rgba(110, 231, 183, 0.5);
+    font-weight: 500;
+  }
+  .btn-primary:hover { background: rgb(80, 211, 163); }
+  .card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+  }
+  textarea.code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.55;
+    background: #0a0a0a;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    color: #ededed;
+    padding: 16px;
+    width: 100%;
+    min-height: 280px;
+    resize: vertical;
+  }
+</style>
+</head>
+
+<body class="bg-[#111111] text-[#ededed] antialiased">
+
+<main class="max-w-4xl mx-auto px-6 py-12">
+
+  <header class="mb-10">
+    <a href="index.html" class="text-sm text-white/40 hover:text-white/70">← volver al sitio</a>
+    <h1 class="mt-4 text-3xl sm:text-4xl font-light tracking-tight">subir fotos</h1>
+    <p class="mt-3 text-sm text-white/50 max-w-2xl">
+      Arrastrá una o varias imágenes acá abajo. Te leo la EXIF (cámara, focal, f-stop, ISO, proporción) y te genero el código para pegar en <code class="mono text-white/70">fotos-data.js</code>. También te ofrezco descargar cada imagen ya renombrada con el número correcto.
+    </p>
+    <p class="mt-2 text-xs text-white/35">⚠️ Esta página es una herramienta local. No la subas a producción.</p>
+  </header>
+
+  <!-- ===== Drop zone ===== -->
+  <div id="dropzone" class="drop-zone p-10 text-center cursor-pointer">
+    <p class="text-base text-white/70">📸 arrastrá fotos acá</p>
+    <p class="mt-2 text-xs text-white/40">o hacé click para elegirlas — JPG / PNG / HEIC</p>
+    <input type="file" id="fileInput" accept="image/*" multiple class="hidden" />
+  </div>
+
+  <!-- ===== Lista de fotos cargadas ===== -->
+  <div id="list" class="mt-8 space-y-4"></div>
+
+  <!-- ===== Output del código ===== -->
+  <section id="output" class="mt-10 hidden">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-lg font-medium">código actualizado de <span class="mono text-white/60">fotos-data.js</span></h2>
+      <div class="flex gap-2">
+        <button id="copyBtn" class="btn">copiar</button>
+        <button id="downloadJsBtn" class="btn btn-primary">descargar fotos-data.js</button>
+      </div>
+    </div>
+    <textarea id="codeOut" class="code" readonly></textarea>
+    <p class="mt-3 text-xs text-white/45">
+      <strong class="text-white/65">Pasos:</strong>
+      1) descargá cada imagen renombrada arriba (botón "descargar como N.jpg") y movelas a <code class="mono">images/fotos/</code> ·
+      2) descargá el <code class="mono">fotos-data.js</code> actualizado y reemplazá el archivo en la raíz del sitio ·
+      3) refrescá <code class="mono">index.html</code>.
+    </p>
+  </section>
+
+</main>
+
+<script src="fotos-data.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
