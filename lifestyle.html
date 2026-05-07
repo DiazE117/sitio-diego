@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>lifestyle · diego díaz</title>
-<meta name="description" content="lifestyle · diego díaz" />
+<meta name="description" content="ramblings, ideas y notas · diego díaz" />
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -31,10 +31,30 @@
   <!-- ===================== MAIN ===================== -->
   <div class="animate-page-enter">
     <main class="min-h-screen px-6 sm:px-8 pt-[18vh] pb-24">
-      <div class="max-w-3xl mx-auto">
+      <div class="max-w-7xl mx-auto">
+
+        <!-- Encabezado -->
+        <header class="mb-12 text-center sm:text-left">
+          <h1 class="text-3xl sm:text-5xl font-light tracking-tight" style="font-family:'Lexend Deca', sans-serif">divagaciones</h1>
+          <p class="mt-3 text-sm sm:text-base text-white/45" style="font-family:'Lexend Deca', sans-serif">ideas, notas y aprendizajes sobre lo que me obsesiona.</p>
+        </header>
+
+        <div id="categories" class="space-y-12"></div>
+
+        <!-- Estado vacío -->
+        <div id="empty" class="hidden text-center py-20">
+          <p class="text-white/45">todavía no escribí nada por acá.</p>
+          <p class="text-white/30 text-sm mt-2">arrancá desde <a href="admin-lifestyle.html" class="underline hover:text-white/60">admin de blog</a>.</p>
+        </div>
+
+        <!-- Footer -->
+        <p class="mt-20 mb-6 text-center text-xs text-white/35 tracking-widest" style="font-family:'Silkscreen', cursive">hecho con 🫶🏽 en querétaro</p>
+
       </div>
     </main>
   </div>
 
+  <script src="lifestyle-data.js"></script>
+  <script src="lifestyle.js"></script>
 </body>
 </html>

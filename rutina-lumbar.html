@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>rutina 4 días — lumbar · diego díaz</title>
+<meta name="description" content="rutina 4 días con foco en columna lumbar" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+
+<style>
+  /* ============================================================
+     Rutina — versión dark del template original
+     ============================================================ */
+  .rutina .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 1.5rem 0 1.75rem; }
+  .rutina .tab {
+    padding: 8px 16px; border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: transparent;
+    font-size: 13px; font-weight: 500;
+    color: rgba(255,255,255,0.55);
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .rutina .tab:hover { color: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.25); }
+  .rutina .tab.active {
+    background: rgba(110, 231, 183, 0.15);
+    color: rgb(110, 231, 183);
+    border-color: rgba(110, 231, 183, 0.35);
+  }
+  /* Indicador "hoy" — un dot verde pulsante */
+  .rutina .tab[data-today="true"] { padding-left: 26px; position: relative; }
+  .rutina .tab[data-today="true"]::before {
+    content: "";
+    position: absolute;
+    left: 12px; top: 50%; transform: translateY(-50%);
+    width: 6px; height: 6px; border-radius: 999px;
+    background: rgb(110, 231, 183);
+    box-shadow: 0 0 8px rgba(110, 231, 183, 0.7);
+    animation: todayPulse 2s ease-in-out infinite;
+  }
+  @keyframes todayPulse {
+    0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
+    50%      { opacity: 0.55; transform: translateY(-50%) scale(0.7); }
+  }
+  /* Banner del día */
+  .rutina .today-banner {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(110, 231, 183, 0.08);
+    border: 1px solid rgba(110, 231, 183, 0.22);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 1rem;
+    font-size: 13px;
+    color: rgba(237, 237, 237, 0.85);
+  }
+  .rutina .today-banner.rest {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  .rutina .today-banner .pill {
+    font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    background: rgb(110, 231, 183);
+    color: #0a1a14;
+    padding: 3px 8px; border-radius: 999px;
+    flex-shrink: 0;
+  }
+  .rutina .today-banner.rest .pill {
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .rutina .day { display: none; }
+  .rutina .day.active { display: block; animation: fadeIn 250ms ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  .rutina .day-title {
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 1.5rem; font-weight: 400;
+    letter-spacing: -0.01em;
+    color: #ededed;
+  }
+  .rutina .badge {
+    display: inline-block; font-size: 11px; font-weight: 500;
+    padding: 4px 11px; border-radius: 20px; margin-right: 6px; margin-top: 8px;
+  }
+  .rutina .badge-blue {
+    background: rgba(110, 180, 255, 0.12);
+    color: rgb(150, 200, 255);
+    border: 1px solid rgba(110, 180, 255, 0.2);
+  }
+  .rutina .badge-teal {
+    background: rgba(110, 231, 183, 0.12);
+    color: rgb(110, 231, 183);
+    border: 1px solid rgba(110, 231, 183, 0.22);
+  }
+  .rutina .warn-box {
+    background: rgba(250, 199, 117, 0.08);
+    border: 1px solid rgba(250, 199, 117, 0.25);
+    border-radius: 10px;
+    padding: 11px 16px;
+    margin-top: 1.25rem;
+    font-size: 12.5px;
+    color: rgba(250, 215, 165, 0.9);
+  }
+  .rutina .section-label {
+    font-size: 11px; font-weight: 500;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin: 1.25rem 0 0.5rem;
+  }
+  .rutina .exercise {
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: start; gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .rutina .exercise:last-child { border-bottom: none; }
+  .rutina .ex-name { font-size: 14px; font-weight: 500; color: rgba(237,237,237,0.92); }
+  .rutina .ex-note { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 4px; line-height: 1.45; }
+  .rutina .sets-badge {
+    display: inline-block; font-size: 12px; font-weight: 500;
+    padding: 5px 11px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    color: #ededed;
+    white-space: nowrap;
+  }
+  .rutina .card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .rutina .footer-note { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 0.75rem; }
+</style>
+</head>
+
+<body class="bg-[#111111] text-[#ededed] antialiased">
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="fixed top-0 left-0 w-full z-50 transition-opacity duration-200">
+    <div class="flex items-center justify-center gap-6 sm:gap-12 py-8">
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="index.html">yo</a>
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="fotos.html">fotos</a>
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="cafe.html">café</a>
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="libros.html">libros</a>
+      <a class="text-xl sm:text-2xl font-display font-semibold text-center" href="lifestyle.html">lifestyle</a>
+    </div>
+  </nav>
+
+  <!-- ===================== MAIN ===================== -->
+  <div class="animate-page-enter">
+    <main class="min-h-screen px-6 sm:px-8 pt-[18vh] pb-24">
+      <div class="rutina max-w-2xl mx-auto">
+
+        <a href="lifestyle.html" class="text-sm text-white/40 hover:text-white/70">← volver al blog</a>
+
+        <header class="mt-6">
+          <p class="text-xs text-white/40 mono uppercase tracking-widest" style="font-family:'JetBrains Mono', monospace">Gym</p>
+          <h1 class="mt-3 text-3xl sm:text-5xl font-light tracking-tight" style="font-family:'Lexend Deca', sans-serif">rutina 4 días — columna lumbar</h1>
+          <p class="mt-3 text-base text-white/50 italic">cuatro días, foco en cadena posterior, técnica primero, lumbar protegida.</p>
+        </header>
+
+        <!-- Banner que dice qué toca hoy (se llena por JS) -->
+        <div id="today-banner" class="today-banner" style="display:none"></div>
+
+        <div class="tabs">
+          <button class="tab active" data-day="0">Sábado · Tren Inferior</button>
+          <button class="tab" data-day="1">Domingo · Full Body</button>
+          <button class="tab" data-day="2">Lunes · Empuje + Core</button>
+          <button class="tab" data-day="3">Martes · Jalón + Espalda</button>
+        </div>
+
+        <!-- SÁBADO -->
+        <div class="day active" id="d0">
+          <div class="day-title">Tren inferior + glúteo</div>
+          <div><span class="badge badge-blue">~38 min</span><span class="badge badge-teal">Sábado</span></div>
+          <div class="warn-box">Calentamiento 5 min: puente de glúteo sin peso × 20, movilidad de cadera</div>
+
+          <div class="card">
+            <div class="section-label">Glúteo y cadena posterior</div>
+            <div class="exercise"><div><div class="ex-name">Hip thrust con mancuerna</div><div class="ex-note">Espalda alta apoyada en banco</div></div><div><span class="sets-badge">3 × 15</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Pull-through en cable</div><div class="ex-note">De espaldas a la máquina — empuje de cadera</div></div><div><span class="sets-badge">3 × 15</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Patada de glúteo en cable</div><div class="ex-note">Polea baja — tobillo enganchado — cada lado</div></div><div><span class="sets-badge">3 × 15/lado</span></div></div>
+          </div>
+
+          <div class="card">
+            <div class="section-label">Piernas</div>
+            <div class="exercise"><div><div class="ex-name">Sentadilla con cable al frente</div><div class="ex-note">Polea baja a altura de pecho</div></div><div><span class="sets-badge">3 × 12</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Subida al banco con mancuernas</div><div class="ex-note">Mancuernas ligeras — cada lado</div></div><div><span class="sets-badge">2 × 12/lado</span></div></div>
+          </div>
+
+          <div class="card">
+            <div class="section-label">Core</div>
+            <div class="exercise"><div><div class="ex-name">Dead bug</div><div class="ex-note">Espalda pegada al suelo — cada lado</div></div><div><span class="sets-badge">3 × 10/lado</span></div></div>
+          </div>
+
+          <div class="footer-note">Estiramiento 5 min: piriforme, flexores de cadera, isquios</div>
+        </div>
+
+        <!-- DOMINGO -->
+        <div class="day" id="d1">
+          <div class="day-title">Full body + movilidad</div>
+          <div><span class="badge badge-blue">~45 min</span><span class="badge badge-teal">Domingo</span></div>
+          <div class="warn-box">Calentamiento 5 min: movilidad articular completa</div>
+
+          <div class="card">
+            <div class="section-label">Cadena posterior y piernas</div>
+            <div class="exercise"><div><div class="ex-name">Pull-through en cable</div><div class="ex-note">De espaldas a la máquina — empuje de cadera</div></div><div><span class="sets-badge">3 × 15</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Sentadilla con cable al frente</div><div class="ex-note">Peso ligero — enfoque en técnica</div></div><div><span class="sets-badge">3 × 12</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Abducción de cadera en cable</div><div class="ex-note">Polea baja — cada lado</div></div><div><span class="sets-badge">3 × 15/lado</span></div></div>
+          </div>
+
+          <div class="card">
+            <div class="section-label">Empuje y hombro</div>
+            <div class="exercise"><div><div class="ex-name">Lagartijas</div><div class="ex-note">Core y glúteo activos — cadera neutra en todo momento</div></div><div><span class="sets-badge">3 × 12</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Aperturas en polea media</div><div class="ex-note">Cable dual</div></div><div><span class="sets-badge">3 × 12</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Elevaciones laterales con mancuerna</div><div class="ex-note">Sentado — movimiento controlado</div></div><div><span class="sets-badge">3 × 15</span></div></div>
+          </div>
+
+          <div class="card">
+            <div class="section-label">Jalón y brazos</div>
+            <div class="exercise"><div><div class="ex-name">Remo en cable sentado</div><div class="ex-note">Peso ligero — espalda neutra</div></div><div><span class="sets-badge">3 × 15</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Curl de bíceps en cable</div><div class="ex-note">Polea baja de pie — sin inercia lumbar</div></div><div><span class="sets-badge">3 × 12</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Extensión de tríceps en polea alta</div><div class="ex-note">Core activo</div></div><div><span class="sets-badge">3 × 12</span></div></div>
+          </div>
+
+          <div class="card">
+            <div class="section-label">Core y movilidad</div>
+            <div class="exercise"><div><div class="ex-name">Plancha frontal</div><div class="ex-note">Glúteo apretado — cadera neutra</div></div><div><span class="sets-badge">3 × 35 seg</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Cat-cow</div><div class="ex-note">Lento y controlado</div></div><div><span class="sets-badge">3 × 10</span></div></div>
+          </div>
+
+          <div class="footer-note">Estiramiento 8 min: piriforme, isquios, flexores de cadera, rodillas al pecho</div>
+        </div>
+
+        <!-- LUNES -->
+        <div class="day" id="d2">
+          <div class="day-title">Empuje + core</div>
+          <div><span class="badge badge-blue">~35 min</span><span class="badge badge-teal">Lunes</span></div>
+          <div class="warn-box">Calentamiento 5 min: marcha en lugar + rotaciones de cadera</div>
+
+          <div class="card">
+            <div class="section-label">Empuje</div>
+            <div class="exercise"><div><div class="ex-name">Press banca con mancuernas</div><div class="ex-note">Espalda neutra — banco + mancuernas</div></div><div><span class="sets-badge">3 × 12</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Press hombro sentado con mancuernas</div><div class="ex-note">No arquear la lumbar</div></div><div><span class="sets-badge">3 × 12</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Aperturas en polea media</div><div class="ex-note">Cable dual al frente</div></div><div><span class="sets-badge">3 × 12</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Extensión de tríceps en polea alta</div><div class="ex-note">Core activo durante todo el movimiento</div></div><div><span class="sets-badge">3 × 12</span></div></div>
+          </div>
+
+          <div class="card">
+            <div class="section-label">Core</div>
+            <div class="exercise"><div><div class="ex-name">Pallof press</div><div class="ex-note">Cable a altura de pecho — cada lado</div></div><div><span class="sets-badge">3 × 10/lado</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Bird dog</div><div class="ex-note">Lento y controlado — cada lado</div></div><div><span class="sets-badge">3 × 10/lado</span></div></div>
+          </div>
+
+          <div class="footer-note">Estiramiento 3 min: pecho y hombros</div>
+        </div>
+
+        <!-- MARTES -->
+        <div class="day" id="d3">
+          <div class="day-title">Jalón + espalda</div>
+          <div><span class="badge badge-blue">~35 min</span><span class="badge badge-teal">Martes</span></div>
+          <div class="warn-box">Calentamiento 5 min: cat-cow × 10 + rotaciones torácicas</div>
+
+          <div class="card">
+            <div class="section-label">Jalón y espalda</div>
+            <div class="exercise"><div><div class="ex-name">Jalón al pecho con barra</div><div class="ex-note">No tirar con la espalda baja</div></div><div><span class="sets-badge">3 × 12</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Remo en cable sentado</div><div class="ex-note">Espalda neutra — no redondear</div></div><div><span class="sets-badge">3 × 12</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Face pull</div><div class="ex-note">Polea alta con cuerda — codos arriba</div></div><div><span class="sets-badge">3 × 15</span></div></div>
+          </div>
+
+          <div class="card">
+            <div class="section-label">Bíceps</div>
+            <div class="exercise"><div><div class="ex-name">Curl de bíceps en cable</div><div class="ex-note">Polea baja de pie — sin inercia lumbar</div></div><div><span class="sets-badge">3 × 12</span></div></div>
+          </div>
+
+          <div class="card">
+            <div class="section-label">Core</div>
+            <div class="exercise"><div><div class="ex-name">Pallof press</div><div class="ex-note">Cable a altura de pecho — antirotación — cada lado</div></div><div><span class="sets-badge">3 × 10/lado</span></div></div>
+            <div class="exercise"><div><div class="ex-name">Plancha frontal</div><div class="ex-note">Glúteo apretado — cadera neutra</div></div><div><span class="sets-badge">3 × 35 seg</span></div></div>
+          </div>
+
+          <div class="footer-note">Estiramiento 3 min: latísimos y espalda alta</div>
+        </div>
+
+        <p class="mt-20 mb-6 text-center text-xs text-white/35 tracking-widest" style="font-family:'Silkscreen', cursive">hecho con 🫶🏽 en querétaro</p>
+      </div>
+    </main>
+  </div>
+
+<script>
+  /* ----------- Cambio manual de tab ----------- */
+  function showDay(i) {
+    document.querySelectorAll('.rutina .day').forEach((d, j) => d.classList.toggle('active', j === i));
+    document.querySelectorAll('.rutina .tab').forEach((t, j) => t.classList.toggle('active', j === i));
+  }
+  document.querySelectorAll('.rutina .tab').forEach(btn => {
+    btn.addEventListener('click', () => showDay(parseInt(btn.dataset.day, 10)));
+  });
+
+  /* ----------- Detección del día actual ----------- */
+  /* JS getDay(): 0=dom 1=lun 2=mar 3=mié 4=jue 5=vie 6=sáb
+     Mapping a los tabs (0=sáb, 1=dom, 2=lun, 3=mar) */
+  const dayToTab = { 6: 0, 0: 1, 1: 2, 2: 3 };
+  const tabLabels = [
+    'Sábado · Tren Inferior',
+    'Domingo · Full Body',
+    'Lunes · Empuje + Core',
+    'Martes · Jalón + Espalda'
+  ];
+  const dayNames  = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+
+  const today  = new Date().getDay();
+  const banner = document.getElementById('today-banner');
+
+  if (dayToTab[today] !== undefined) {
+    /* Hoy es día de entrenamiento */
+    const tabIdx = dayToTab[today];
+    showDay(tabIdx);
+    document.querySelector(`.rutina .tab[data-day="${tabIdx}"]`).dataset.today = 'true';
+    banner.className = 'today-banner';
+    banner.innerHTML = `<span class="pill">hoy</span><span><strong style="color:#fff">${tabLabels[tabIdx]}</strong> — vamos al gym 💪</span>`;
+    banner.style.display = 'flex';
+  } else {
+    /* Día de descanso — calculamos el próximo entrenamiento */
+    let nextTab = null, nextDayName = '';
+    for (let offset = 1; offset <= 7; offset++) {
+      const d = (today + offset) % 7;
+      if (dayToTab[d] !== undefined) {
+        nextTab = dayToTab[d];
+        nextDayName = offset === 1 ? 'mañana' : `el ${dayNames[d]}`;
+        break;
+      }
+    }
+    banner.className = 'today-banner rest';
+    banner.innerHTML = `<span class="pill">descanso</span><span>hoy toca descansar — ${nextDayName} arrancamos con <strong style="color:#fff">${tabLabels[nextTab]}</strong></span>`;
+    banner.style.display = 'flex';
+    /* Pre-cargo el tab del próximo día para que ya lo veas */
+    showDay(nextTab);
+  }
+</script>
+</body>
+</html>

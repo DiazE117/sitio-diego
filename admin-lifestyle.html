@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>admin · blog</title>
+<meta name="robots" content="noindex,nofollow" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+
+<style>
+  body { font-family: 'Lexend Deca', sans-serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .field {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #ededed;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    width: 100%;
+  }
+  .field:focus { outline: none; border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.06); }
+  textarea.field { min-height: 180px; resize: vertical; line-height: 1.55; }
+  textarea.editor { min-height: 420px; }
+  .btn {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: #ededed;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 150ms ease, transform 150ms ease;
+  }
+  .btn:hover { background: rgba(255,255,255,0.14); }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary {
+    background: rgb(110, 231, 183);
+    color: #0a1a14;
+    border-color: rgba(110, 231, 183, 0.5);
+    font-weight: 500;
+  }
+  .btn-primary:hover { background: rgb(80, 211, 163); }
+  .card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+  }
+  textarea.code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.55;
+    background: #0a0a0a;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    color: #ededed;
+    padding: 16px;
+    width: 100%;
+    min-height: 320px;
+    resize: vertical;
+  }
+
+  /* Reuse del estilo "prose" del post para el preview */
+  .prose { color: rgba(237, 237, 237, 0.92); font-size: 15px; line-height: 1.7; }
+  .prose h1, .prose h2, .prose h3 { color: #ededed; line-height: 1.25; margin-top: 1.4em; margin-bottom: 0.5em; font-family: 'Lexend Deca', sans-serif; }
+  .prose h1 { font-size: 1.6rem; font-weight: 600; }
+  .prose h2 { font-size: 1.3rem; font-weight: 500; }
+  .prose h3 { font-size: 1.1rem; font-weight: 500; }
+  .prose p { margin: 0 0 1em 0; }
+  .prose a { color: #a3d8ff; text-decoration: underline; }
+  .prose strong { color: #fff; }
+  .prose code { background: rgba(255,255,255,0.06); padding: 0.1em 0.4em; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.88em; }
+  .prose pre { background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 12px; overflow-x: auto; font-size: 12px; }
+  .prose pre code { background: none; padding: 0; }
+  .prose blockquote { border-left: 3px solid rgba(255,255,255,0.18); padding: 0.3em 0.8em; color: rgba(237,237,237,0.7); font-style: italic; margin: 1em 0; }
+  .prose ul, .prose ol { margin: 0 0 1em 1.4em; }
+  .prose img { max-width: 100%; border-radius: 8px; }
+  .prose hr { border: 0; height: 2px; background: linear-gradient(to right, transparent, rgba(255,255,255,0.18), transparent); margin: 1.5em 0; }
+</style>
+</head>
+
+<body class="bg-[#111111] text-[#ededed] antialiased">
+
+<main class="max-w-6xl mx-auto px-6 py-12">
+
+  <header class="mb-8">
+    <a href="index.html" class="text-sm text-white/40 hover:text-white/70">← volver al sitio</a>
+    <span class="mx-2 text-white/20">·</span>
+    <a href="admin.html" class="text-sm text-white/40 hover:text-white/70">fotos</a>
+    <span class="mx-2 text-white/20">·</span>
+    <a href="admin-cafe.html" class="text-sm text-white/40 hover:text-white/70">café</a>
+    <span class="mx-2 text-white/20">·</span>
+    <a href="admin-libros.html" class="text-sm text-white/40 hover:text-white/70">libros</a>
+
+    <h1 class="mt-4 text-3xl sm:text-4xl font-light tracking-tight">escribir un post</h1>
+    <p class="mt-3 text-sm text-white/50 max-w-2xl">
+      Llená los campos. El contenido va en <strong class="text-white/75">markdown</strong> — abajo a la derecha tenés el preview en vivo. Cuando termines, descargás el <code class="mono text-white/70">lifestyle-data.js</code> actualizado.
+    </p>
+    <p class="mt-2 text-xs text-white/35">⚠️ Página local. No la subas a producción.</p>
+  </header>
+
+  <!-- Form + preview -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <!-- Form -->
+    <div class="card p-5 space-y-4">
+      <div class="grid grid-cols-2 gap-3">
+        <label>
+          <span class="text-xs text-white/50 mono">categoría</span>
+          <input class="field mt-1" id="f-categoria" placeholder="ej. Diseño · Imprenta · IA" value="General" />
+        </label>
+        <label>
+          <span class="text-xs text-white/50 mono">fecha</span>
+          <input class="field mt-1" id="f-fecha" type="date" />
+        </label>
+      </div>
+
+      <label class="block">
+        <span class="text-xs text-white/50 mono">título</span>
+        <input class="field mt-1" id="f-titulo" placeholder="ej. Por qué amo la imprenta" />
+      </label>
+
+      <label class="block">
+        <span class="text-xs text-white/50 mono">slug <span class="text-white/30">(generado automáticamente del título)</span></span>
+        <input class="field mt-1" id="f-slug" placeholder="por-que-amo-la-imprenta" />
+      </label>
+
+      <label class="block">
+        <span class="text-xs text-white/50 mono">subtítulo / itálica</span>
+        <input class="field mt-1" id="f-subtitle" placeholder="una línea corta que aparece debajo de la fecha" />
+      </label>
+
+      <label class="block">
+        <span class="text-xs text-white/50 mono">excerpt <span class="text-white/30">(resumen para la card del index)</span></span>
+        <textarea class="field mt-1" id="f-excerpt" style="min-height:80px" placeholder="primer párrafo o resumen — máx 280 caracteres"></textarea>
+      </label>
+
+      <label class="block">
+        <span class="text-xs text-white/50 mono">banner <span class="text-white/30">(opcional, ej. images/lifestyle/portada.jpg)</span></span>
+        <input class="field mt-1" id="f-banner" placeholder="" />
+      </label>
+
+      <label class="block">
+        <span class="text-xs text-white/50 mono">contenido <span class="text-white/30">(markdown)</span></span>
+        <textarea class="field editor mt-1" id="f-contenido" placeholder="# Subtítulo&#10;&#10;Escribí tu post acá. Soportá **negrita**, *itálica*, [links](https://...), `código`, listas, blockquotes…&#10;&#10;## Sección&#10;&#10;Lorem ipsum."></textarea>
+      </label>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <button id="addBtn" class="btn btn-primary">+ agregar post</button>
+        <button id="resetBtn" class="btn">limpiar</button>
+        <span class="text-[11px] text-white/40 ml-auto" id="status">0 posts en cola</span>
+      </div>
+    </div>
+
+    <!-- Preview -->
+    <div class="card p-6">
+      <p class="text-xs text-white/50 mono mb-3">preview en vivo</p>
+      <p class="text-xs text-white/40 mono uppercase tracking-widest" id="p-cat" style="font-family:'JetBrains Mono', monospace"></p>
+      <h2 id="p-titulo" class="mt-2 text-2xl sm:text-3xl font-light tracking-tight" style="font-family:'Lexend Deca', sans-serif"></h2>
+      <p id="p-subtitle" class="mt-1 text-sm text-white/50 italic"></p>
+      <p id="p-fecha" class="mt-2 text-[10px] text-white/35"></p>
+      <div class="mt-5 prose" id="p-content"></div>
+    </div>
+  </div>
+
+  <!-- Lista de posts en cola -->
+  <div id="queue" class="mt-10 space-y-3"></div>
+
+  <!-- Output -->
+  <section id="output" class="mt-10 hidden">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-lg font-medium">código actualizado de <span class="mono text-white/60">lifestyle-data.js</span></h2>
+      <div class="flex gap-2">
+        <button id="copyBtn" class="btn">copiar</button>
+        <button id="downloadJsBtn" class="btn btn-primary">descargar lifestyle-data.js</button>
+      </div>
+    </div>
+    <textarea id="codeOut" class="code" readonly></textarea>
+    <p class="mt-3 text-xs text-white/45">
+      <strong class="text-white/65">Pasos:</strong>
+      1) si subiste imágenes nuevas, pegalas en <code class="mono">images/lifestyle/</code> ·
+      2) descargá <code class="mono">lifestyle-data.js</code> y reemplazá el archivo en raíz ·
+      3) refrescá <code class="mono">lifestyle.html</code>.
+    </p>
+  </section>
+
+</main>
+
+<script src="lifestyle-data.js"></script>
+<script src="admin-lifestyle.js"></script>
+</body>
+</html>
