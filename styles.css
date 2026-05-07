@@ -97,6 +97,32 @@ html, body {
 ::selection { background: rgba(255,255,255,0.18); color: #fff; }
 
 /* ============================================================
+   Nav: glass effect al hacer scroll
+   ============================================================ */
+nav.fixed {
+  transition: background-color 250ms ease,
+              backdrop-filter 250ms ease,
+              -webkit-backdrop-filter 250ms ease,
+              box-shadow 250ms ease,
+              border-color 250ms ease;
+  border-bottom: 1px solid transparent;
+}
+nav.fixed.scrolled {
+  background-color: rgba(17, 17, 17, 0.65);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+nav.fixed > div {
+  transition: padding 250ms ease;
+}
+nav.fixed.scrolled > div {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* ============================================================
    Galería de fotos (página fotos.html)
    ============================================================ */
 
