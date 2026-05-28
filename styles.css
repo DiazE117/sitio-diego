@@ -4,11 +4,12 @@
    ============================================================ */
 
 :root {
-  --bg: #111111;
-  --ink: #ededed;
-  --subtle: rgba(255, 255, 255, 0.55);
-  --glass-stroke: rgba(255, 255, 255, 0.08);
-  --glass-stroke-soft: rgba(255, 255, 255, 0.05);
+  --bg: #161616;
+  --ink: #d6cdb4;
+  --ink-rgb: 214, 205, 180;
+  --subtle: rgba(214, 205, 180, 0.55);
+  --glass-stroke: rgba(214, 205, 180, 0.10);
+  --glass-stroke-soft: rgba(214, 205, 180, 0.06);
 }
 
 html, body {
@@ -94,7 +95,40 @@ html, body {
 /* ============================================================
    Scrollbar suave (opcional, estética)
    ============================================================ */
-::selection { background: rgba(255,255,255,0.18); color: #fff; }
+::selection { background: rgba(214, 205, 180, 0.25); color: #fff; }
+
+/* ============================================================
+   Override del color "blanco" Tailwind a la tinta crema
+   Mapea text-white/X% → mismo X% pero con el color #d6cdb4.
+   Para mantener el blanco real en un elemento puntual (ej. chip
+   sobre una foto), agregale la clase .keep-white o usá color
+   inline.
+   ============================================================ */
+.text-white               { color: rgb(var(--ink-rgb)) !important; }
+.text-white\/95           { color: rgba(var(--ink-rgb), 0.95) !important; }
+.text-white\/90           { color: rgba(var(--ink-rgb), 0.9)  !important; }
+.text-white\/85           { color: rgba(var(--ink-rgb), 0.85) !important; }
+.text-white\/80           { color: rgba(var(--ink-rgb), 0.8)  !important; }
+.text-white\/75           { color: rgba(var(--ink-rgb), 0.75) !important; }
+.text-white\/70           { color: rgba(var(--ink-rgb), 0.7)  !important; }
+.text-white\/65           { color: rgba(var(--ink-rgb), 0.65) !important; }
+.text-white\/60           { color: rgba(var(--ink-rgb), 0.6)  !important; }
+.text-white\/55           { color: rgba(var(--ink-rgb), 0.55) !important; }
+.text-white\/50           { color: rgba(var(--ink-rgb), 0.5)  !important; }
+.text-white\/45           { color: rgba(var(--ink-rgb), 0.45) !important; }
+.text-white\/40           { color: rgba(var(--ink-rgb), 0.4)  !important; }
+.text-white\/35           { color: rgba(var(--ink-rgb), 0.35) !important; }
+.text-white\/30           { color: rgba(var(--ink-rgb), 0.3)  !important; }
+.text-white\/25           { color: rgba(var(--ink-rgb), 0.25) !important; }
+.text-white\/20           { color: rgba(var(--ink-rgb), 0.2)  !important; }
+.text-white\/15           { color: rgba(var(--ink-rgb), 0.15) !important; }
+.text-white\/\[0\.07\]    { color: rgba(var(--ink-rgb), 0.07) !important; }
+
+/* Escape hatch: para mantener blanco puro */
+.keep-white                { color: #fff !important; }
+.keep-white\/80            { color: rgba(255,255,255,0.8) !important; }
+.keep-white\/70            { color: rgba(255,255,255,0.7) !important; }
+.keep-white\/40            { color: rgba(255,255,255,0.4) !important; }
 
 /* ============================================================
    Nav: glass effect al hacer scroll
@@ -108,7 +142,7 @@ nav.fixed {
   border-bottom: 1px solid transparent;
 }
 nav.fixed.scrolled {
-  background-color: rgba(17, 17, 17, 0.65);
+  background-color: rgba(22, 22, 22, 0.65);
   backdrop-filter: blur(18px) saturate(180%);
   -webkit-backdrop-filter: blur(18px) saturate(180%);
   border-bottom-color: rgba(255, 255, 255, 0.06);
