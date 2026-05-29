@@ -1,7 +1,7 @@
 /* ============================================================
    libros-data.js — Libros leyendo y terminados
    ============================================================
-   Generado por admin-libros.html el 29/5/2026, 12:12:04 p.m..
+   Generado por admin-libros.html el 29/5/2026, 12:22:47 p.m..
    ============================================================ */
 
 window.LIBROS = {
@@ -24,6 +24,13 @@ window.LIBROS = {
   ],
 
   terminados: [
+    {
+      titulo:   "La sombra del viento",
+      autor:    "Carlos Ruiz Zafón",
+      cover:    "images/libros/la-sombra-del-viento.jpg",
+      gradient: "linear-gradient(135deg, #3d2b5a, #6b4d8a)",
+      tags:     []
+    },
     {
       titulo:   "Proyecto Hail Mary",
       autor:    "Andy Weir",
