@@ -1,12 +1,19 @@
 /* ============================================================
    libros-data.js — Libros leyendo y terminados
    ============================================================
-   Generado por admin-libros.html el 4/5/2026, 2:24:18 p.m..
+   Generado por admin-libros.html el 29/5/2026, 12:12:04 p.m..
    ============================================================ */
 
 window.LIBROS = {
 
   leyendo: [
+    {
+      titulo:   "El conde de Montecristo - 1. edición",
+      autor:    "Alexandre Dumas",
+      cover:    "images/libros/el-conde-de-montecristo-1-edicion.jpg",
+      gradient: "linear-gradient(135deg, #3a5a3a, #5a8a5a)",
+      tags:     []
+    },
     {
       titulo:   "Exhalación",
       autor:    "Ted Chiang",
