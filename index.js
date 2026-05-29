@@ -4,6 +4,32 @@
    ============================================================ */
 
 (function () {
+  /* ----------- Reloj local de Querétaro ----------- */
+  const clockTime = document.getElementById('clock-time');
+  const clockAmpm = document.getElementById('clock-ampm');
+  const clockDate = document.getElementById('clock-date');
+  if (clockTime) {
+    const TZ = 'America/Mexico_City';
+    const timeFmt = new Intl.DateTimeFormat('es-MX', {
+      timeZone: TZ, hour: '2-digit', minute: '2-digit', hour12: true
+    });
+    const dateFmt = new Intl.DateTimeFormat('es-MX', {
+      timeZone: TZ, weekday: 'long', day: 'numeric', month: 'long'
+    });
+    function tick() {
+      const now = new Date();
+      const parts = timeFmt.formatToParts(now);
+      const hh = parts.find(p => p.type === 'hour')?.value || '';
+      const mm = parts.find(p => p.type === 'minute')?.value || '';
+      const ap = (parts.find(p => p.type === 'dayPeriod')?.value || '').replace(/\./g, '');
+      clockTime.textContent = `${hh}:${mm}`;
+      if (clockAmpm) clockAmpm.textContent = ap.toUpperCase();
+      if (clockDate) clockDate.textContent = dateFmt.format(now);
+    }
+    tick();
+    setInterval(tick, 1000 * 10); // refresca cada 10s (basta para min)
+  }
+
   /* ----------- Café actual en el párrafo de intro ----------- */
   const cafeImg = document.getElementById('cafe-img');
   const cafeLink = document.getElementById('cafe-link');

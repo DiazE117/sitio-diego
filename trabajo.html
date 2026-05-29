@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>trabajo · diego díaz</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&family=Silkscreen:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+
+<style>
+  .prose { color: rgba(214, 205, 180, 0.92); font-size: 17px; line-height: 1.75; }
+  .prose h1, .prose h2, .prose h3 {
+    font-family: 'Lexend Deca', sans-serif;
+    color: #d6cdb4; line-height: 1.25; margin-top: 2em; margin-bottom: 0.6em;
+  }
+  .prose h2 { font-size: 1.5rem; font-weight: 500; }
+  .prose h3 { font-size: 1.2rem; font-weight: 500; }
+  .prose p  { margin: 0 0 1.1em 0; }
+  .prose a  { color: #a3d8ff; text-decoration: underline; text-underline-offset: 3px; }
+  .prose strong { color: #fff; font-weight: 600; }
+  .prose ul, .prose ol { margin: 0 0 1.2em 1.4em; padding-left: 1.1em; }
+  .prose ul { list-style: disc; }
+  .prose ol { list-style: decimal; }
+  .prose li { margin: 0.35em 0; padding-left: 0.2em; }
+  .prose li::marker { color: rgba(214, 205, 180, 0.4); }
+  .prose hr { border: 0; height: 2px; border-radius: 999px; background: linear-gradient(to right, transparent, rgba(255,255,255,0.18), transparent); margin: 2.5em 0; }
+</style>
+</head>
+
+<body class="bg-[#161616] text-[#d6cdb4] antialiased">
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="fixed top-0 left-0 w-full z-50 transition-opacity duration-200">
+    <div class="flex items-center justify-center gap-6 sm:gap-12 py-8">
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="index.html">yo</a>
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="fotos.html">fotos</a>
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="cafe.html">café</a>
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="libros.html">libros</a>
+      <a class="text-xl sm:text-2xl font-display text-subtle hover:opacity-100 text-center" href="lifestyle.html">lifestyle</a>
+    </div>
+  </nav>
+
+  <!-- ===================== MAIN ===================== -->
+  <div class="animate-page-enter">
+    <main class="min-h-screen px-6 sm:px-8 pt-[18vh] pb-24">
+      <article class="max-w-2xl mx-auto">
+
+        <a href="index.html" class="text-sm text-white/40 hover:text-white/70">← volver</a>
+
+        <!-- Header -->
+        <header id="t-header" class="mt-6 mb-10 hidden">
+          <div class="flex items-center gap-4">
+            <div class="w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0 glass-border">
+              <img id="t-img" src="" alt="" class="w-full h-full object-cover" />
+            </div>
+            <div>
+              <p id="t-tipo" class="text-xs text-white/40 mono uppercase tracking-widest" style="font-family:'JetBrains Mono', monospace"></p>
+              <div class="flex items-center gap-2 mt-1">
+                <h1 id="t-title" class="text-3xl sm:text-4xl font-light tracking-tight" style="font-family:'Lexend Deca', sans-serif"></h1>
+                <span id="t-dot" class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.6)] hidden"></span>
+              </div>
+            </div>
+          </div>
+          <p id="t-rol" class="mt-3 text-base text-white/55"></p>
+          <p id="t-periodo" class="mt-1 text-xs text-white/35"></p>
+          <div id="t-tags" class="flex flex-wrap gap-1.5 mt-4"></div>
+          <a id="t-web" href="#" target="_blank" rel="noopener noreferrer" class="hidden mt-5 inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors" style="background:rgb(110,231,183);color:#0a1a14">visitar sitio ↗</a>
+        </header>
+
+        <!-- Contenido -->
+        <div id="t-content" class="prose"></div>
+
+        <!-- 404 -->
+        <div id="t-404" class="hidden text-center py-20">
+          <p class="text-white/55">no encontré ese trabajo.</p>
+          <a href="index.html" class="text-sm text-white/40 hover:text-white/70 mt-3 inline-block">← volver al inicio</a>
+        </div>
+
+        <!-- Footer -->
+        <p class="mt-20 mb-6 text-center text-xs text-white/35 tracking-widest" style="font-family:'Silkscreen', cursive">hecho con 🫶🏽 en querétaro</p>
+        <div class="flex justify-center mt-10 mb-10">
+          <a href="index.html"><img src="images/logo.svg" alt="DIOZ" class="h-7 sm:h-8 opacity-35 hover:opacity-60 transition-opacity duration-300" /></a>
+        </div>
+
+      </article>
+    </main>
+  </div>
+
+  <script src="trabajo-data.js"></script>
+  <script src="trabajo.js"></script>
+  <script src="nav.js"></script>
+</body>
+</html>

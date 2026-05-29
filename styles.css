@@ -131,6 +131,36 @@ html, body {
 .keep-white\/40            { color: rgba(255,255,255,0.4) !important; }
 
 /* ============================================================
+   Panel admin: barra de pestañas unificada
+   ============================================================ */
+.admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.admin-tab {
+  font-size: 13px;
+  padding: 6px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(214, 205, 180, 0.6);
+  text-decoration: none;
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+  font-family: 'Lexend Deca', sans-serif;
+}
+.admin-tab:hover { color: #d6cdb4; border-color: rgba(255, 255, 255, 0.28); }
+.admin-tab-active {
+  background: rgb(110, 231, 183);
+  color: #0a1a14;
+  border-color: transparent;
+  font-weight: 500;
+}
+.admin-tab-back { border: none; opacity: 0.6; padding-left: 4px; padding-right: 8px; }
+.admin-tab-back:hover { opacity: 1; }
+.admin-tab-sep { width: 1px; height: 18px; background: rgba(255, 255, 255, 0.12); margin: 0 4px; }
+
+/* ============================================================
    Nav: glass effect al hacer scroll
    ============================================================ */
 nav.fixed {

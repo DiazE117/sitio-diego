@@ -34,7 +34,7 @@
   /* Contenido (markdown → HTML) */
   const content = document.getElementById('post-content');
   if (window.marked) {
-    marked.setOptions({ breaks: true, gfm: true });
+    marked.setOptions({ breaks: false, gfm: true });
     content.innerHTML = marked.parse(post.contenido || '');
   } else {
     content.textContent = post.contenido || '';

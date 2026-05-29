@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>admin · trabajos</title>
+<meta name="robots" content="noindex,nofollow" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+
+<style>
+  body { font-family: 'Lexend Deca', sans-serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .field, select.field, textarea.field {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #d6cdb4;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    width: 100%;
+  }
+  .field:focus, select.field:focus, textarea.field:focus { outline: none; border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.06); }
+  textarea.field { min-height: 60px; resize: vertical; line-height: 1.55; }
+  textarea.editor { min-height: 320px; }
+  .btn {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: #d6cdb4;
+    padding: 8px 14px; border-radius: 10px; font-size: 13px; cursor: pointer;
+    transition: background 150ms ease, transform 150ms ease;
+  }
+  .btn:hover { background: rgba(255,255,255,0.14); }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: rgb(110, 231, 183); color: #0a1a14; border-color: rgba(110, 231, 183, 0.5); font-weight: 500; }
+  .btn-primary:hover { background: rgb(80, 211, 163); }
+  .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; }
+  .drop-zone { border: 2px dashed rgba(255,255,255,0.18); border-radius: 12px; transition: border-color 200ms ease, background 200ms ease; }
+  .drop-zone.dragging { border-color: rgba(110, 231, 183, 0.6); background: rgba(110, 231, 183, 0.05); }
+  textarea.code {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.55;
+    background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
+    color: #d6cdb4; padding: 16px; width: 100%; min-height: 320px; resize: vertical;
+  }
+  .prose { color: rgba(214, 205, 180, 0.92); font-size: 15px; line-height: 1.7; }
+  .prose h2, .prose h3 { color: #d6cdb4; margin-top: 1.4em; margin-bottom: 0.5em; font-family: 'Lexend Deca', sans-serif; }
+  .prose h2 { font-size: 1.3rem; font-weight: 500; }
+  .prose h3 { font-size: 1.1rem; font-weight: 500; }
+  .prose p { margin: 0 0 1em 0; }
+  .prose strong { color: #fff; }
+  .prose ul, .prose ol { margin: 0 0 1em 1.4em; padding-left: 1.1em; }
+  .prose ul { list-style: disc; } .prose ol { list-style: decimal; }
+  .prose li { margin: 0.3em 0; }
+  .prose a { color: #a3d8ff; text-decoration: underline; }
+</style>
+</head>
+
+<body class="bg-[#161616] text-[#d6cdb4] antialiased">
+
+<main class="max-w-6xl mx-auto px-6 py-12">
+
+  <div id="admin-nav" class="mb-8"></div>
+
+  <header class="mb-8">
+    <h1 class="text-3xl sm:text-4xl font-light tracking-tight">trabajos y proyectos</h1>
+    <p class="mt-3 text-sm text-white/50 max-w-2xl">
+      Agregá un trabajo o proyecto. El detalle va en <strong class="text-white/75">markdown</strong> con preview en vivo.
+      Al terminar descargás el <code class="mono text-white/70">trabajo-data.js</code> actualizado (y el logo renombrado).
+    </p>
+    <p class="mt-2 text-xs text-white/35">⚠️ Página local. No la subas a producción.</p>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <!-- Form -->
+    <div class="card p-5 space-y-4">
+      <div class="grid grid-cols-2 gap-3">
+        <label>
+          <span class="text-xs text-white/50 mono">tipo</span>
+          <select class="field mt-1" id="f-tipo">
+            <option value="trabajo">trabajo</option>
+            <option value="proyecto">proyecto</option>
+          </select>
+        </label>
+        <label>
+          <span class="text-xs text-white/50 mono">periodo</span>
+          <input class="field mt-1" id="f-periodo" placeholder="ej. ahora · 2024 — 2025" value="ahora" />
+        </label>
+      </div>
+
+      <label class="block">
+        <span class="text-xs text-white/50 mono">título</span>
+        <input class="field mt-1" id="f-titulo" placeholder="ej. Pre-prensa" />
+      </label>
+
+      <label class="block">
+        <span class="text-xs text-white/50 mono">slug <span class="text-white/30">(auto)</span></span>
+        <input class="field mt-1" id="f-slug" placeholder="pre-prensa" />
+      </label>
+
+      <label class="block">
+        <span class="text-xs text-white/50 mono">rol / subtítulo</span>
+        <input class="field mt-1" id="f-rol" placeholder="ej. pre-prensista" />
+      </label>
+
+      <div class="grid grid-cols-2 gap-3 items-center">
+        <label class="flex items-center gap-2 text-sm text-white/60">
+          <input type="checkbox" id="f-activo" class="accent-emerald-300" />
+          activo (dot verde)
+        </label>
+        <label>
+          <span class="text-xs text-white/50 mono">web (opcional)</span>
+          <input class="field mt-1" id="f-web" placeholder="https://..." />
+        </label>
+      </div>
+
+      <label class="block">
+        <span class="text-xs text-white/50 mono">tags <span class="text-white/30">(separados por coma)</span></span>
+        <input class="field mt-1" id="f-tags" placeholder="diseño, desarrollo, producto" />
+      </label>
+
+      <!-- Logo -->
+      <div>
+        <span class="text-xs text-white/50 mono">logo / imagen</span>
+        <div id="dropzone" class="drop-zone p-5 text-center cursor-pointer mt-1">
+          <p class="text-sm text-white/55">arrastrá una imagen o hacé click</p>
+          <p class="text-[11px] text-white/35 mt-1">se guardará en images/work/ — <span id="f-img-name" class="mono">(sin imagen)</span></p>
+          <input type="file" id="fileInput" accept="image/*" class="hidden" />
+        </div>
+        <label class="block mt-2">
+          <span class="text-[11px] text-white/40 mono">o ruta manual</span>
+          <input class="field mt-1" id="f-img" placeholder="images/work/preprensa.jpg" />
+        </label>
+      </div>
+
+      <label class="block">
+        <span class="text-xs text-white/50 mono">contenido <span class="text-white/30">(markdown)</span></span>
+        <textarea class="field editor mt-1" id="f-contenido" placeholder="Descripción del trabajo.&#10;&#10;## Qué hago&#10;&#10;- Punto uno&#10;- Punto dos"></textarea>
+      </label>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <button id="addBtn" class="btn btn-primary">+ agregar</button>
+        <button id="resetBtn" class="btn">limpiar</button>
+        <button id="dlImgBtn" class="btn hidden">descargar logo</button>
+        <span class="text-[11px] text-white/40 ml-auto" id="status">0 en cola</span>
+      </div>
+    </div>
+
+    <!-- Preview -->
+    <div class="card p-6">
+      <p class="text-xs text-white/50 mono mb-3">preview</p>
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-xl overflow-hidden glass-border flex items-center justify-center bg-black/30">
+          <img id="p-img" src="" alt="" class="w-full h-full object-cover" style="display:none" />
+        </div>
+        <div>
+          <p id="p-tipo" class="text-[10px] text-white/40 mono uppercase tracking-widest"></p>
+          <div class="flex items-center gap-2">
+            <h2 id="p-titulo" class="text-xl font-light" style="font-family:'Lexend Deca', sans-serif">título</h2>
+            <span id="p-dot" class="w-1.5 h-1.5 rounded-full bg-emerald-400 hidden"></span>
+          </div>
+        </div>
+      </div>
+      <p id="p-rol" class="mt-2 text-sm text-white/55"></p>
+      <p id="p-periodo" class="text-xs text-white/35"></p>
+      <div id="p-tags" class="flex flex-wrap gap-1.5 mt-3"></div>
+      <div id="p-content" class="prose mt-4"></div>
+    </div>
+  </div>
+
+  <!-- Cola -->
+  <div id="queue" class="mt-8 space-y-3"></div>
+
+  <!-- Output -->
+  <section id="output" class="mt-10 hidden">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-lg font-medium">código de <span class="mono text-white/60">trabajo-data.js</span></h2>
+      <div class="flex gap-2">
+        <button id="copyBtn" class="btn">copiar</button>
+        <button id="downloadJsBtn" class="btn btn-primary">descargar trabajo-data.js</button>
+      </div>
+    </div>
+    <textarea id="codeOut" class="code" readonly></textarea>
+    <p class="mt-3 text-xs text-white/45">
+      <strong class="text-white/65">Pasos:</strong>
+      1) descargá el logo y movelo a <code class="mono">images/work/</code> ·
+      2) descargá <code class="mono">trabajo-data.js</code> y reemplazá el archivo en raíz ·
+      3) en la home, las cards ya linkean a <code class="mono">trabajo.html?slug=…</code>.
+    </p>
+  </section>
+
+</main>
+
+<script src="trabajo-data.js"></script>
+<script src="admin-trabajo.js"></script>
+<script src="admin-nav.js"></script>
+</body>
+</html>

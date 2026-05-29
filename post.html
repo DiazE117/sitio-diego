@@ -31,8 +31,11 @@
   .prose a:hover { color: #cce8ff; }
   .prose strong { color: #fff; font-weight: 600; }
   .prose em { color: rgba(214, 205, 180,0.85); }
-  .prose ul, .prose ol { margin: 0 0 1.2em 1.4em; }
-  .prose li { margin: 0.3em 0; }
+  .prose ul, .prose ol { margin: 0 0 1.2em 1.4em; padding-left: 1.1em; }
+  .prose ul { list-style: disc; }
+  .prose ol { list-style: decimal; }
+  .prose li { margin: 0.3em 0; padding-left: 0.2em; }
+  .prose li::marker { color: rgba(214, 205, 180, 0.4); }
   .prose blockquote {
     border-left: 3px solid rgba(255,255,255,0.18);
     padding: 0.4em 1em;
