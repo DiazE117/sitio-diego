@@ -12,7 +12,7 @@
 <!-- Tipografías -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet" />
 
 <link rel="stylesheet" href="styles.css" />
 </head>
@@ -37,7 +37,7 @@
 
         <!-- ===== Párrafo de intro con elementos inline ===== -->
         <p class="text-[1.35rem] sm:text-[2rem] leading-[3.5rem] sm:leading-[4rem] font-light tracking-tight text-center sm:text-left" style="font-family:'Lexend Deca', sans-serif">
-          hola, soy diego! me obsesiono con el diseño, la tecnología, la imprenta y la IA. cuando no estoy en la imprenta, preparo
+          hola, soy <a href="sobre-mi.html" class="underline decoration-1 underline-offset-4 decoration-white/30 hover:decoration-white/70 transition-colors"><span class="variable-proximity" style="font-family:'Lexend Deca', sans-serif" data-label="diego" data-from="'wght' 400" data-to="'wght' 900" data-radius="90" data-falloff="gaussian"></span></a>! me obsesiono con el diseño, la tecnología, la imprenta y la IA. cuando no estoy en la imprenta, preparo
 
           <!-- Café — la imagen se cambia dinámicamente al café actual desde cafe-data.js -->
           <a href="cafe.html" id="cafe-link" class="inline-block align-middle mx-0.5 relative transition-all duration-300 hover:scale-110 h-[2rem] sm:h-[2.2rem] overflow-visible">
@@ -179,5 +179,6 @@
 <script src="libros-data.js"></script>
 <script src="index.js"></script>
 <script src="nav.js"></script>
+<script src="variable-proximity.js"></script>
 </body>
 </html>
